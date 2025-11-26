@@ -1,0 +1,17 @@
+<?php
+
+$clientes = [];
+const CHEQUE_ESPECIAL = 500;
+
+function cadastrarCliente(&$clientes, $nome, $saldo) {
+
+    global $clientes;
+    $nome = readline('Informe seu nome: ');
+    $cpf = readline('Informe seu CPF: ');
+
+    $clientes[$cpf] = [
+        'nome' => $nome,
+        'cpf' => $cpf
+    ];
+
+}
