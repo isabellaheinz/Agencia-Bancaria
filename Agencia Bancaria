@@ -41,7 +41,7 @@ function cadastrarConta(array &$clientes) : bool{
     ];
 
     print("Conta criada com sucesso! \n");
-    print("O número da sua conta é: $numConta");
+    print("O número da sua conta é: $numConta" . "\n\n");
     return true; 
 
 }
@@ -59,10 +59,27 @@ function depositar(&$clientes) : bool{
 
     $clientes[$cpf]['contas'][$numConta]['saldo'] += $valorDeposito;
     $data = date('d/m/Y H:i');
-    $clientes[$cpf]['contas'][$numConta]['extrato'][] = "Depósito de R$ $valorDeposito em $data";
+    $clientes[$cpf]['contas'][$numConta]['extrato'][] = "$data => Depósito de R$ $valorDeposito";
 
-    print("Depósito realizado com sucesso. ");
+    print("Depósito realizado com sucesso. \n\n");
     return true;
+}
+
+function sacar(&$clientes){
+    
+    $cpf = readline("Informe seu CPF: ");
+    //validacao
+    $numConta = readline("Informe o número da sua conta: ");
+    $valorSaque = (float) readline("Informe o valor do saque: ");
+
+    //verificacao
+
+    $clientes[$cpf]['contas'][$numConta]['saldo'] -= $valorSaque;
+    $data = date('d/m/Y H:i');
+    $clientes[$cpf]['contas'][$numConta]['extrato'][] = "$data => Depósito de R$ $valorSaque";
+
+    print_r($clientes[$cpf]);
+
 }
 
 function menu(){
@@ -83,6 +100,7 @@ function menu(){
 
 while(true){
 
+
     menu();
     $opcao = readline();
 
@@ -98,13 +116,18 @@ while(true){
         case '3':
             depositar($clientes);
             break;
-        
+
+        case '4':
+            sacar($clientes);
+            break;
+
         case '7':
             print ("Obrigada por usar o banco Ibellasa!");
+            die();
             break;
         
         default:
-            # code...
+            print ("Opção inválida. \n\n");
             break;
     }
 
